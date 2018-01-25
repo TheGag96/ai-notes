@@ -1,0 +1,62 @@
+%
+%  4-uninformed-search-algorithms.tex
+%  Introduction To Artificial Intelligence
+%
+%  Created by Illya Starikov on 01/24/18.
+%  Copyright 2018. Illya Starikov. All rights reserved.
+%
+
+\section{Uninformed Search Algorithms}
+An uninformed (a.k.a.\ blind, brute-force) search algorithm generates the search tree without using any domain specific knowledge.
+
+\subsection{Bread First Tree Search (BFTS)}
+\begin{itemize}
+    \item Frontier is a FIFO Queue
+    \item Complete if $b$ and $d$ are finite
+    \item Optimal if path-cost is non-decreasing function of depth
+    \item Time complexity is $\bigO{b^d}$
+    \item Space complexity is $\bigO{b^d}$
+\end{itemize}
+
+\begin{algorithmic}[1]
+    \Function{Breadth-First-Search}{problem}
+        \Let{node}{a node with \textsc{State} = problem.\textsc{Initial-State},\textsc{Path-Cost} = 0}
+
+        \State{}
+        \If{problem.\Call{Goal-Test}{node.\textsc{State}}}
+            \State{\Return{\Call{Solution}{node}}}
+        \EndIf{}
+
+        \State{}
+        \Let{frontier}{a FIFO queue with \textit{node} as the only element}
+        \Let{explored}{an empty set}
+        \State{}
+
+        \Loop{}
+            \If{\Call{Empty?}{frontier}}
+                \State{\Return{failure}}
+            \EndIf{}
+            \State{}
+
+            \Let{node}{\Call{Pop}{frontier}} \Comment{Chooses the shallowest node in frontier}
+            \Let{explored}{explored $\cup$ node.\textsc{State}}
+
+            \State{}
+            \ForAll{action $\in$ problem.\Call{Actions}{node.\textsc{State}}}
+                \Let{child}{\Call{Child-Node}{problem, node, action}}
+
+                \State{}
+                \If{child.\textsc{State} $\not\in$ explored, frontier}
+                    \If{problem.\call{Goal-Test}{child.\textsc{State}}}
+                        \State{\Return{\Call{Solution}{child}}}
+                    \EndIf{}
+
+                    \State{}
+                    \Let{frontier}{\Call{Insert}{child, frontier}}
+                \EndIf{}
+            \EndFor{}
+        \EndLoop{}
+
+    \EndFunction{}
+\end{algorithmic}
+
