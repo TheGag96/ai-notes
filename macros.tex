@@ -10,6 +10,14 @@
 \usepackage{tocloft}
 \renewcommand\cftsecleader{\cftdotfill{\cftdotsep}}
 
+\usepackage{algpseudocode,algorithm,algorithmicx}
+\newcommand*\Let[2]{\State{#1 $\gets$ #2}}
+\algrenewcommand\algorithmicrequire{\textbf{Precondition:}}
+\algrenewcommand\algorithmicensure{\textbf{Postcondition:}}
+\algdef{SE}[SUBALG]{Indent}{EndIndent}{}{\algorithmicend\ }%
+\algtext*{Indent}
+\algtext*{EndIndent}
+
 \usepackage{hyperref}
 \hypersetup{
     colorlinks,
